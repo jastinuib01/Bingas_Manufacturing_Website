@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Products – PT Bingas Manufacturing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #C0392B; --red-dark: #962d22; --red-light: #f9ecea;
+      --white: #ffffff; --gray-light: #F5F5F5; --gray-mid: #e0e0e0;
+      --text-dark: #2C2C2C; --text-mid: #555555; --text-light: #888888;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: var(--white); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid var(--gray-mid);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 68px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 44px; object-fit: contain; }
+    .nav-logo span { font-size: 17px; font-weight: 700; color: var(--red); letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-cta { background: var(--red); color: var(--white) !important; padding: 9px 20px; border-radius: 6px; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--red-dark); color: var(--white) !important; }
+
+    .page-hero { background: var(--gray-light); padding: 72px 8% 60px; border-bottom: 1px solid var(--gray-mid); }
+    .page-hero p { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
+    .page-hero span { display: block; font-size: 16px; color: var(--text-mid); margin-top: 14px; line-height: 1.65; max-width: 560px; font-weight: 400; }
+
+    section { padding: 80px 8%; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .section-title { font-size: clamp(24px, 3vw, 34px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 20px; }
+
+    .product-category { margin-bottom: 64px; }
+    .product-category:last-child { margin-bottom: 0; }
+    .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--gray-light); }
+    .category-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .category-title { font-size: 20px; font-weight: 700; }
+
+    .products-table { width: 100%; border-collapse: collapse; }
+    .products-table th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); padding: 10px 16px; background: var(--gray-light); }
+    .products-table th:first-child { border-radius: 6px 0 0 6px; }
+    .products-table th:last-child { border-radius: 0 6px 6px 0; }
+    .products-table td { padding: 16px; font-size: 15px; border-bottom: 1px solid var(--gray-light); vertical-align: top; }
+    .products-table tr:last-child td { border-bottom: none; }
+    .products-table tr:hover td { background: var(--red-light); }
+    .product-name-cell { font-weight: 600; color: var(--text-dark); }
+    .product-formula-cell { font-size: 13px; color: var(--text-light); font-family: monospace; }
+    .product-use-cell { font-size: 14px; color: var(--text-mid); }
+
+    .photo-section { background: var(--gray-light); }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .photo-grid img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; }
+
+    .contact-strip { background: var(--red); text-align: center; padding: 80px 8%; }
+    .contact-strip .section-label { color: rgba(255,255,255,0.65); }
+    .contact-strip .section-title { color: var(--white); margin-bottom: 14px; }
+    .contact-strip p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 36px; }
+    .btn-white { display: inline-block; background: var(--white); color: var(--red); padding: 13px 32px; border-radius: 6px; font-weight: 700; font-size: 15px; text-decoration: none; transition: opacity 0.2s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    footer { background: var(--text-dark); color: rgba(255,255,255,0.6); padding: 40px 8%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 5%; }
+      .nav-links { display: none; }
+      section { padding: 60px 5%; }
+      .page-hero { padding: 48px 5% 40px; }
+      .photo-grid { grid-template-columns: 1fr; }
+      .products-table th:nth-child(2), .products-table td:nth-child(2) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="../index.html">
+      <img src="../assets/logo/logo.png" alt="PT Bingas Manufacturing Logo" />
+      <span>PT Bingas Manufacturing</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="products.html" class="active">Our Products</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <p>Our Products</p>
+    <h1>Industrial Gases for Every Application</h1>
+    <span>We supply a comprehensive range of high-purity industrial gases for welding, cutting, fabrication, laboratory, and manufacturing processes.</span>
+  </div>
+
+  <!-- PRODUCTS LIST -->
+  <section>
+
+    <!-- Pure Gases -->
+    <div class="product-category">
+      <div class="category-header">
+        <div class="category-dot"></div>
+        <div class="category-title">Pure Industrial Gases</div>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Chemical Formula</th>
+            <th>Common Applications</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="product-name-cell">Oxygen</td>
+            <td class="product-formula-cell">O₂</td>
+            <td class="product-use-cell">Oxy-fuel cutting, welding, medical, industrial combustion</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Carbon Dioxide</td>
+            <td class="product-formula-cell">CO₂</td>
+            <td class="product-use-cell">MIG/MAG welding shielding gas, food processing, refrigeration</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Argon</td>
+            <td class="product-formula-cell">Ar</td>
+            <td class="product-use-cell">TIG/MIG welding, metal fabrication, laboratory use</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Nitrogen</td>
+            <td class="product-formula-cell">N₂</td>
+            <td class="product-use-cell">Purging, blanketing, cooling, laser cutting assist gas</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Helium</td>
+            <td class="product-formula-cell">He</td>
+            <td class="product-use-cell">TIG welding of thin materials, laboratory, leak detection</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Dissolved Acetylene</td>
+            <td class="product-formula-cell">C₂H₂</td>
+            <td class="product-use-cell">Oxy-acetylene cutting and welding, heat treatment</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Hydrogen</td>
+            <td class="product-formula-cell">H₂</td>
+            <td class="product-use-cell">Plasma cutting, heat treatment, laboratory research</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mix Gases -->
+    <div class="product-category">
+      <div class="category-header">
+        <div class="category-dot"></div>
+        <div class="category-title">Specialty Mix Gases</div>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Composition</th>
+            <th>Common Applications</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="product-name-cell">Argon/CO₂ Mix</td>
+            <td class="product-formula-cell">75% Ar / 25% CO₂</td>
+            <td class="product-use-cell">MIG welding of carbon steel – standard shielding blend</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Argon/CO₂ Mix</td>
+            <td class="product-formula-cell">80% Ar / 20% CO₂</td>
+            <td class="product-use-cell">MIG welding, reduced spatter, improved arc stability</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Argon/Nitrogen Mix</td>
+            <td class="product-formula-cell">98% Ar / 2% N₂</td>
+            <td class="product-use-cell">Specialized welding applications, stainless steel fabrication</td>
+          </tr>
+          <tr>
+            <td class="product-name-cell">Custom Mix Gas</td>
+            <td class="product-formula-cell">Custom blend</td>
+            <td class="product-use-cell">Available upon request – contact us for your specific requirements</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- PHOTO SECTION -->
+  <section class="photo-section">
+    <p class="section-label">In Use</p>
+    <h2 class="section-title">Our Gases, Your Industry</h2>
+    <div class="photo-grid">
+      <img src="../assets/images/product.jpg" alt="Industrial gas cylinders" />
+      <img src="../assets/images/welding.jpg" alt="Welding application using industrial gas" />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="contact-strip">
+    <p class="section-label">Ready to Order</p>
+    <h2 class="section-title">Need a Specific Gas or Mix?</h2>
+    <p>Contact our team for pricing, availability, or to discuss a custom gas solution for your application.</p>
+    <a href="contact.html" class="btn-white">Contact Us Now</a>
+  </section>
+
+  <footer>
+    <span>© 2025 PT Bingas Manufacturing. All rights reserved.</span>
+    <span>Komp. Hijrah Industrial Estate, Batam Centre, Kepulauan Riau</span>
+    <a href="tel:+628117043232">+62 811-7043-232</a>
+  </footer>
+
+</body>
+</html>
