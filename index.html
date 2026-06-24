@@ -43,7 +43,7 @@
       border-bottom: 1px solid var(--gray-mid);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; /* <-- SUDAH DIPERBAIKI DARI TYPO SEBELUMNYA */
       padding: 0 6%;
       height: 68px;
       transition: box-shadow 0.3s;
@@ -69,8 +69,13 @@
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 36px;
       list-style: none;
+    }
+
+    .nav-links > li {
+      position: relative;
     }
 
     .nav-links a {
@@ -83,6 +88,45 @@
     }
 
     .nav-links a:hover { color: var(--red); }
+
+    /* Desktop Dropdown Menu */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--white);
+      border: 1px solid var(--gray-mid);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 8px 0;
+      min-width: 260px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      margin-top: 12px;
+    }
+
+    .nav-links > li:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--text-mid);
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .dropdown a:hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
 
     .nav-cta {
       background: var(--red);
@@ -133,6 +177,8 @@
       padding: 12px 6%;
       z-index: 99;
       box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
     }
 
     .mobile-menu.open { display: flex; }
@@ -147,8 +193,33 @@
       cursor: pointer;
     }
 
+    /* Mobile Sub-menu styling */
+    .mobile-sub-label {
+      font-weight: 600;
+      color: var(--text-dark);
+      padding-top: 14px;
+      padding-bottom: 6px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mobile-menu .mobile-sub-item {
+      padding: 10px 0 10px 16px;
+      font-size: 14px;
+      color: var(--text-mid);
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .mobile-menu .mobile-sub-item::before {
+      content: "• ";
+      color: var(--red);
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
     .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a.nav-cta { text-align: center; border-radius: 6px; margin-top: 8px; border-bottom: none; }
+    .mobile-menu a.nav-cta { text-align: center; border-radius: 6px; margin-top: 14px; border-bottom: none; }
 
     /* ─── HERO ─── */
     #home {
@@ -204,21 +275,6 @@
     }
 
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-
-    .btn-primary {
-      background: var(--red);
-      color: var(--white);
-      padding: 14px 28px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s;
-      border: none;
-    }
-
-    .btn-primary:hover { background: var(--red-dark); }
 
     .btn-outline {
       border: 1.5px solid rgba(255,255,255,0.5);
@@ -338,19 +394,10 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      scroll-margin-top: 80px; /* Prevent heading being covered by fixed navbar */
     }
 
     .mix-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
-
-    .mix-table { width: 100%; border-collapse: collapse; }
-    .mix-table th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); padding: 10px 16px; background: var(--gray-light); }
-    .mix-table th:first-child { border-radius: 6px 0 0 6px; }
-    .mix-table th:last-child { border-radius: 0 6px 6px 0; }
-    .mix-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--gray-light); }
-    .mix-table tr:last-child td { border-bottom: none; }
-    .mix-table tr:hover td { background: var(--red-light); }
-    .mix-name { font-weight: 600; }
-    .mix-formula { font-family: monospace; font-size: 13px; color: var(--text-light); }
 
     /* ─── VALUES ─── */
     .values-grid {
@@ -477,24 +524,6 @@
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
       .about-img { height: 240px; }
       .hours-grid { grid-template-columns: 1fr 1fr; }
-      .mix-table { display: block; overflow-x: auto; white-space: nowrap; }
-      .mix-table thead, .mix-table tbody, .mix-table tr { display: block; }
-      .mix-table thead { display: none; }
-      .mix-table tr {
-        border-bottom: 1px solid var(--gray-light);
-        padding: 14px 0;
-        white-space: normal;
-      }
-      .mix-table tr:hover { background: var(--red-light); }
-      .mix-table td {
-        display: block;
-        padding: 4px 0;
-        border-bottom: none;
-        white-space: normal;
-      }
-      .mix-table tr:hover td { background: transparent; }
-      .mix-name { font-size: 15px; }
-      .mix-formula::before { content: "→ "; }
     }
   </style>
 </head>
@@ -509,7 +538,17 @@
     <ul class="nav-links">
       <li><a onclick="scrollToSection('home')">Home</a></li>
       <li><a onclick="scrollToSection('about')">About Us</a></li>
-      <li><a onclick="scrollToSection('products')">Our Products</a></li>
+      <li>
+        <a onclick="scrollToSection('products')">Our Products</a>
+        <!-- Desktop Dropdown Sub-menu -->
+        <ul class="dropdown">
+          <li><a onclick="scrollToSection('prod-1')">Industrial Gases</a></li>
+          <li><a onclick="scrollToSection('prod-2')">Calibration / Specialty / Mixes</a></li>
+          <li><a onclick="scrollToSection('prod-3')">Purified Gases</a></li>
+          <li><a onclick="scrollToSection('prod-4')">Supply Modes</a></li>
+          <li><a onclick="scrollToSection('prod-5')">Other Gas Service Solutions</a></li>
+        </ul>
+      </li>
       <li><a onclick="scrollToSection('contact')" class="nav-cta">Contact Us</a></li>
     </ul>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -523,7 +562,15 @@
   <div class="mobile-menu" id="mobileMenu">
     <a onclick="scrollToSection('home')">Home</a>
     <a onclick="scrollToSection('about')">About Us</a>
-    <a onclick="scrollToSection('products')">Our Products</a>
+    
+    <!-- Expanded Menu Sections for Mobile Burger -->
+    <div class="mobile-sub-label">Our Products</div>
+    <a onclick="scrollToSection('prod-1')" class="mobile-sub-item">Industrial Gases</a>
+    <a onclick="scrollToSection('prod-2')" class="mobile-sub-item">Calibration / Specialty / Mixes</a>
+    <a onclick="scrollToSection('prod-3')" class="mobile-sub-item">Purified Gases</a>
+    <a onclick="scrollToSection('prod-4')" class="mobile-sub-item">Supply Modes</a>
+    <a onclick="scrollToSection('prod-5')" class="mobile-sub-item">Other Gas Service Solutions</a>
+    
     <a onclick="scrollToSection('contact')" class="nav-cta">Contact Us</a>
   </div>
 
@@ -532,10 +579,10 @@
     <div class="hero-bg"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Industrial Gas Solutions – Batam</p>
-      <h1 class="hero-title" >Powering Industry with <span>Precision Gas</span> Solutions</h1>
+      <h1 class="hero-title">Powering Industry with <span>Precision Gas</span> Solutions</h1>
       <p class="hero-desc" style="text-align: justify;">PT Bingas Manufacturing supplies high-purity industrial gases to support welding, fabrication, laboratory, and manufacturing operations across Batam and the surrounding region.</p>
       <div class="hero-actions">
-        <a class="btn-primary" onclick="scrollToSection('products')">View Our Products</a>
+        <!-- Tombol "View Our Products" sudah dihapus -->
         <a class="btn-outline" onclick="scrollToSection('contact')">Contact Us</a>
       </div>
     </div>
@@ -602,7 +649,7 @@
     <p class="section-desc" style="text-align: justify;">We provide high-quality industrial gases, precision mixtures, high-purity supplies, and flexible delivery modes to support your manufacturing efficiency.</p>
 
     <!-- CATEGORY 1: INDUSTRIAL GASES -->
-    <div class="mix-title" style="margin-top: 40px;">
+    <div class="mix-title" id="prod-1" style="margin-top: 40px;">
       <div class="mix-dot"></div>
       Industrial Gases
     </div>
@@ -611,54 +658,54 @@
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">O₂</div>
         <div class="product-name">Oxygen</div>
-        <div class="product-use" >Oxy-fuel cutting, welding, industrial combustion</div>
+        <div class="product-use">Oxy-fuel cutting, welding, industrial combustion</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">CO₂</div>        
         <div class="product-name">Carbon Dioxide</div>
-        <div class="product-use" >MIG/MAG welding shielding gas</div>
+        <div class="product-use">MIG/MAG welding shielding gas</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">Ar</div>        
         <div class="product-name">Argon</div>
-        <div class="product-use" >TIG/MIG welding, metal fabrication, laboratory use</div>
+        <div class="product-use">TIG/MIG welding, metal fabrication, laboratory use</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">N₂</div>        
         <div class="product-name">Nitrogen</div>
-        <div class="product-use" >Purging, blanketing, cooling, laser cutting assist gas</div>
+        <div class="product-use">Purging, blanketing, cooling, laser cutting assist gas</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">He</div>        
         <div class="product-name">Helium</div>
-        <div class="product-use" >TIG welding of thin materials, laboratory, leak detection</div>
+        <div class="product-use">TIG welding of thin materials, laboratory, leak detection</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">C₂H₂</div>        
         <div class="product-name">Dissolved Acetylene</div>
-        <div class="product-use" >Oxy-acetylene cutting and welding, heat treatment</div>
+        <div class="product-use">Oxy-acetylene cutting and welding, heat treatment</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">H₂</div>        
         <div class="product-name">Hydrogen</div>
-        <div class="product-use" >Plasma cutting, heat treatment, laboratory research</div>
+        <div class="product-use">Plasma cutting, heat treatment, laboratory research</div>
       </div>
 
       <div class="product-card">
         <div class="product-icon" style="color: white; font-weight: bold;">Air</div>        
         <div class="product-name">Air </div>
-        <div class="product-use" >Pneumatic systems, industrial automation, control systems</div>
+        <div class="product-use">Pneumatic systems, industrial automation, control systems</div>
       </div>
     </div>
 
     <!-- CATEGORY 2: CALIBRATION / SPECIALTY / MIXTURE GASES -->
-    <div class="mix-title" style="margin-top: 60px;">
+    <div class="mix-title" id="prod-2" style="margin-top: 60px;">
       <div class="mix-dot"></div>
       Calibration / Specialty / Mixture Gases
     </div>
@@ -696,7 +743,7 @@
     </div>
 
     <!-- CATEGORY 3: PURIFIED GASES -->
-    <div class="mix-title" style="margin-top: 60px;">
+    <div class="mix-title" id="prod-3" style="margin-top: 60px;">
       <div class="mix-dot"></div>
       Purified Gases
     </div>
@@ -720,7 +767,7 @@
     </div>
 
     <!-- CATEGORY 4: SUPPLY MODES -->
-    <div class="mix-title" style="margin-top: 60px;">
+    <div class="mix-title" id="prod-4" style="margin-top: 60px;">
       <div class="mix-dot"></div>
       Supply Modes
     </div>
@@ -758,59 +805,58 @@
       </div>
     </div> 
 
-      <!-- CATEGORY 5: OTHER GAS SERVICE SOLUTIONS -->
-      <div class="mix-title" style="margin-top: 60px;">
-        <div class="mix-dot"></div>
-        Other Gas Service Solutions
-      </div>
+    <!-- CATEGORY 5: OTHER GAS SERVICE SOLUTIONS -->
+    <div class="mix-title" id="prod-5" style="margin-top: 60px;">
+      <div class="mix-dot"></div>
+      Other Gas Service Solutions
+    </div>
 
-      <div class="products-grid">
-        <div class="product-card">
-          <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">🛠️</div>
-          <div class="product-name">Gas Piping &amp; Distribution</div>
-          <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Design, Fabrication &amp; Installation</div>
-          <div class="product-use">
-            Professional design, turnkey fabrication, and secure installation of high-pressure gas distribution systems and industrial pipeline networks customized for your manufacturing plant layout.
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">⚙️</div>
-          <div class="product-name">Custom Storage Racks</div>
-          <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Design &amp; Fabrication</div>
-          <div class="product-use">
-            Engineering and precision manufacturing of purpose-built gas pallets, specialized cylinder cradles, and heavy-duty steel racks tailored to optimize your workshop or transport storage.
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">📋</div>
-          <div class="product-name">Offshore Certification</div>
-          <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">MPI &amp; Load Testing</div>
-          <div class="product-use">
-            Comprehensive Magnetic Particle Inspection (MPI) and structural load testing services required for strict offshore compliance, safety standards, and maritime certification.
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">🔄</div>
-          <div class="product-name">Gas Purging Projects</div>
-          <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Execution &amp; Safe Inerting</div>
-          <div class="product-use">
-            Expert execution of industrial gas purging and displacement operations for pipelines, vessels, or storage facilities to ensure complete safety and contamination-free processes.
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">💡</div>
-          <div class="product-name">Industrial Gas Solutions</div>
-          <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Consulting &amp; Technical Support</div>
-          <div class="product-use">
-            End-to-end consulting, cost optimization, supply reliability planning, and dedicated technical maintenance to solve complex industrial gas challenges in your daily operations.
-          </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">🛠️</div>
+        <div class="product-name">Gas Piping &amp; Distribution</div>
+        <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Design, Fabrication &amp; Installation</div>
+        <div class="product-use">
+          Professional design, turnkey fabrication, and secure installation of high-pressure gas distribution systems and industrial pipeline networks customized for your manufacturing plant layout.
         </div>
       </div>
-    
+
+      <div class="product-card">
+        <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">⚙️</div>
+        <div class="product-name">Custom Storage Racks</div>
+        <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Design &amp; Fabrication</div>
+        <div class="product-use">
+          Engineering and precision manufacturing of purpose-built gas pallets, specialized cylinder cradles, and heavy-duty steel racks tailored to optimize your workshop or transport storage.
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">📋</div>
+        <div class="product-name">Offshore Certification</div>
+        <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">MPI &amp; Load Testing</div>
+        <div class="product-use">
+          Comprehensive Magnetic Particle Inspection (MPI) and structural load testing services required for strict offshore compliance, safety standards, and maritime certification.
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">🔄</div>
+        <div class="product-name">Gas Purging Projects</div>
+        <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Execution &amp; Safe Inerting</div>
+        <div class="product-use">
+          Expert execution of industrial gas purging and displacement operations for pipelines, vessels, or storage facilities to ensure complete safety and contamination-free processes.
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon" style="color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;">💡</div>
+        <div class="product-name">Industrial Gas Solutions</div>
+        <div class="product-use" style="margin-bottom: 8px; font-weight: 600;">Consulting &amp; Technical Support</div>
+        <div class="product-use">
+          End-to-end consulting, cost optimization, supply reliability planning, and dedicated technical maintenance to solve complex industrial gas challenges in your daily operations.
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ─── CONTACT ─── -->
@@ -851,17 +897,17 @@
 
         <!-- Email-->
         <div class="contact-card">
-              <div class="contact-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              </div>
-              <div>
-                <div class="contact-card-label">Email Address</div>
-                <div class="contact-card-value">
-                  <a href="mailto:sales@ptbingas.com" style="color: inherit; text-decoration: none;">enquiry@bingasmfg.com</a>
-                </div>
-                <div class="contact-card-note">Send us your official inquiries or RFQ — we'll get back to you shortly</div>
-              </div>
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">Email Address</div>
+            <div class="contact-card-value">
+              <a href="mailto:enquiry@bingasmfg.com" style="color: inherit; text-decoration: none;">enquiry@bingasmfg.com</a>
             </div>
+            <div class="contact-card-note">Send us your official inquiries or RFQ — we'll get back to you shortly</div>
+          </div>
+        </div>
 
         <!-- Address -->
         <div class="contact-card">
@@ -923,7 +969,7 @@
       closeMenu();
       const el = document.getElementById(id);
       if (el) {
-        const offset = 68;
+        const offset = 85; // Compensation for fixed header + spacing
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
