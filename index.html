@@ -238,7 +238,10 @@
       background-position: center top;
       background-size: cover;
       background-repeat: no-repeat;
-      filter: brightness(0.45);
+
+      filter: brightness(0.45) contrast(1.15) saturate(1.1) drop-shadow(0px 4px 10px rgba(0,0,0,0.3));
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
 
     .hero-content {
